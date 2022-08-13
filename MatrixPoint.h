@@ -13,6 +13,6 @@ private:
     Street *m_streets;
 
 public:
-}
+};
 
 #endif __MATRIX_POINT_H

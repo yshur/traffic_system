@@ -23,6 +23,6 @@ public:
     const char *getName() const { return m_name; }
     const Point *getPointsList() const { return m_pointsList; }
     void setName(char *name) { m_name = name; }
-}
+};
 
 #endif __STREET_H

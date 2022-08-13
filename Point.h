@@ -9,12 +9,11 @@ private:
     const int m_x;
     const int m_y;
     Street *m_streets;
+    unsigned int m_countStreets = 0;
 
 public:
-    Point(int x, int y)
+    Point(int x, int y): m_x(x), m_y(y)
     {
-        m_x = x;
-        m_y = y;
     }
 
     const int getX() const { return m_x; }
@@ -24,6 +23,8 @@ public:
 
     void addStreet(Street *newStreet);
     void rmStreet(Street *newStreet);
-}
+
+    void printPoint();
+};
 
 #endif __POINT_H
