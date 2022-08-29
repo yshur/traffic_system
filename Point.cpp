@@ -4,51 +4,106 @@
 
 using namespace std;
 
-const int* getStreetsIDs()
+Point::Point(int x, int y) : m_x(x), m_y(y)
 {
-	int* streetIDs = new int[m_countStreets];
-	for (int i = 0; i < m_countStreets; i++)
-	{
-		streetIDs[i] = m_streets[i]->getID();
-	}
-	return streetIDs;
+	m_streets = new Street[2];
+	m_countStreets = 0;
+	m_streetDirection = -1;
 }
 
-void addStreet(Street* newStreet)
+void Point::addStreet(Street *newStreet)
 {
-	for (int i = 0; i < m_countStreets; i++)
+	int streetDirection = newStreet->getDirection();
+	if (m_streets[streetDirection]->getID() == newStreet->getID())
 	{
-		if (m_streets[i]->getID() == newStreet->getID())
-			return;
+		return;
 	}
-	m_streets[m_countStreets] = newStreet;
-	m_countStreets++;
-}
-
-void rmStreet(Street* oldStreet)
-{
-	for (int i = 0; i < m_countStreets; i++)
+	else
 	{
-		if (m_streets[i]->getID() == oldStreet->getID())
+		if (m_streets[streetDirection] == nullptr)
 		{
-			m_streets[i] = nullptr;
-			for (int j = i + 1; j < m_countStreets; j++)
-			{
-				m_streets[i] = m_streets[j];
-				i++;
-			}
-			m_countStreets--;
-			return;
+			m_streets[streetDirection] = newStreet;
+			m_countStreets++;
+		}
+		else
+		{
+			Street* oldStreet = m_streets[streetDirection];
+			m_streets[streetDirection] = nullptr;
+			oldStreet->rmPoint(this);
+			m_streets[streetDirection] = newStreet;
+		}
+		newStreet->addPoint(this);
+		if (m_countStreets == 1)
+		{
+			m_streetDirection = streetDirection;
+		}
+		else if (m_countStreets == 1)
+		{
+			m_streetDirection = 2;
 		}
 	}
 }
 
-void printPoint()
+void Point::rmStreet(Street *oldStreet)
+{
+	int streetDirection = oldStreet->getDirection();
+	if (m_streets[streetDirection]->getID() == oldStreet->getID())
+	{
+		// update m_streetDirection
+		if (m_countStreets == 1)
+		{
+			m_streetDirection = -1;
+		}
+		else if (m_countStreets == 2)
+		{
+			// get opposite direction
+			m_streetDirection = (streetDirection == 0) ? 1 : 0;
+		}
+		m_countStreets--;
+		m_streets[streetDirection] = nullptr;
+	}
+}
+
+void Point::print(int line = 1)
 {
 	if (m_countStreets == 0)
+	{
 		cout >> "   ";
-	else if (m_countStreets == 1)
-		cout >> " " >> m_streets[0]->getID() >> " ";
-	else 
-		cout >> " 0 ";
+	}
+	else if (m_countStreets >= 2)
+	{
+		if (line != 1)
+		{
+			cout >> "   ";
+		}
+		else // line == 1
+		{
+			cout >> " 0 ";
+		}
+	}
+	else // m_countStreets == 1
+	{
+		if (m_streetDirection == 0)
+		{
+			if (line == 0 || line == 2)
+			{
+				cout >> "---";
+			}
+			else // line == 1
+			{
+				cout >> " " >> m_streets[m_streetDirection]->getID() >> " ";
+			}
+		}
+		else // m_streetDirection == 1
+		{
+			if (line == 0 || line == 2)
+			{
+				cout >> "| |";
+			}
+			else // line == 1
+			{
+				cout >> "|" >> m_streets[m_streetDirection]->getID() >> "|";
+			}
+		}
+	}
 }
