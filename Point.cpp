@@ -14,7 +14,7 @@ Point::Point(int x, int y) : m_x(x), m_y(y)
 void Point::addStreet(Street *newStreet)
 {
 	int streetDirection = newStreet->getDirection();
-	if (m_streets[streetDirection]->getID() == newStreet->getID())
+	if (m_streets[streetDirection] == newStreet)
 	{
 		return;
 	}
@@ -27,7 +27,7 @@ void Point::addStreet(Street *newStreet)
 		}
 		else
 		{
-			Street* oldStreet = m_streets[streetDirection];
+			Street *oldStreet = m_streets[streetDirection];
 			m_streets[streetDirection] = nullptr;
 			oldStreet->rmPoint(this);
 			m_streets[streetDirection] = newStreet;
@@ -47,7 +47,7 @@ void Point::addStreet(Street *newStreet)
 void Point::rmStreet(Street *oldStreet)
 {
 	int streetDirection = oldStreet->getDirection();
-	if (m_streets[streetDirection]->getID() == oldStreet->getID())
+	if (m_streets[streetDirection] == oldStreet)
 	{
 		// update m_streetDirection
 		if (m_countStreets == 1)
@@ -61,6 +61,7 @@ void Point::rmStreet(Street *oldStreet)
 		}
 		m_countStreets--;
 		m_streets[streetDirection] = nullptr;
+		oldStreet->rmPoint(this);
 	}
 }
 

@@ -21,6 +21,7 @@ public:
     const char *getName() const { return m_name; }
 
     void addPoint(Point *newPoint);
+    void rmPoint(Point *oldPoint);
     void print();
 };
 
