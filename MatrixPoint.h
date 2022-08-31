@@ -7,11 +7,11 @@ class Street;
 class MatrixPoint
 {
 private:
-    const int m_hight;
-    const int m_width;
+    int m_hight;
+    int m_width;
     Point **m_pointsMatrix;
     Street *m_streets;
-    const int m_streetsLength;
+    int m_streetsLength;
     int m_streetsCount;
 
 public:
@@ -20,4 +20,4 @@ public:
     void print() {}
 };
 
-#endif __MATRIX_POINT_H
+#endif // __MATRIX_POINT_H

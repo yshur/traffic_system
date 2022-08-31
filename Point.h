@@ -23,4 +23,4 @@ public:
     void print();
 };
 
-#endif __POINT_H
+#endif // __POINT_H

@@ -7,5 +7,5 @@ int main(int argc, char *argv[])
 	mp.addStreet(3, 2, 0, 750, "Bugrachov");
 	mp.addStreet(6, 1, 1, 500, "Bar-Kochva");
 	mp.addStreet(12, 0, 1, 800, "Hayarkon");
-	p.print();
+	mp.print();
 }
