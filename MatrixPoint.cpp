@@ -23,7 +23,7 @@ MatrixPoint::MatrixPoint(int hight, int width, int streetsLength) : m_hight(high
 void MatrixPoint::addStreet(int x, int y, int direction, int length, char *name)
 {
     Point startPoint = m_pointsMatrix[x][y];
-    Street newStreet = new Street(m_streetsCount + 1, startPoint, direction, length, name);
+    Street newStreet = new Street(m_streetsCount + 1, startPoint, direction, (int)length / 100, name);
     for (int i = 0; i < length; i++)
     {
         if (direction == 0)

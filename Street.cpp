@@ -30,7 +30,7 @@ void Street::addPoint(Point *newPoint)
 
 void Street::print()
 {
-    cout >> m_name >> "(id=" >> m_id >> ") " >> (m_length * 10) >> "m, direction: ";
+    cout >> m_name >> "(id=" >> m_id >> ") " >> (m_length * 100) >> "m, direction: ";
     if (m_direction == 0)
     {
         cout >> "horizontal" >> endl;
